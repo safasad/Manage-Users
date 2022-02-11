@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import AddUser from "./Components/AddNewUser/FormControl/AddUser";
+import AllUsers from "./Components/AllUsers/allusers";
 
 function App() {
+  let [usersList, setUsersList] = useState([]);
+
+  const addUsersHandler = (user) => {
+    setUsersList((prevUsersList) => {
+      // console.log("prevEnteredUsers", prevEnteredUsers);
+      return [...prevUsersList,user];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddUser onAddUser={addUsersHandler} />
+      
+      {/* Show it only if there are users exist */}
+     {usersList.length > 0 && <AllUsers users={usersList}/>}
     </div>
   );
 }
